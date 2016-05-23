@@ -25,7 +25,7 @@ export class FruitService {
   }
 
   addFruit(name: string): Promise<Fruit> {
-    
+
     let body = JSON.stringify({ name : name });
   
     return this.http.post(
@@ -39,11 +39,31 @@ export class FruitService {
                 let response = res.json(); 
                 let g = new Fruit(); 
                 g.name = response.name;
+                g._id = response._id;
                 return g;
               }
             )
        .catch(this.handleError);
   } 
+
+  deleteFruit(id : string): Promise<Fruit> {
+
+    return this.http.delete(
+        url + "/" + id,
+        options
+      )
+       .toPromise()
+       .then((res: Response) => 
+            {
+                let response = res.json(); 
+                let g = new Fruit(); 
+                g.name = response.name;
+                g._id = response._id;
+                return g;
+             }
+            )
+       .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {
@@ -55,6 +75,7 @@ export class FruitService {
     body.forEach((el) => {
       let g = new Fruit();
       g.name = el.name;
+      g._id = el._id;
       arr.push(g);
     })
     return arr || [];

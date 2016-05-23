@@ -39352,6 +39352,21 @@
 	        this.fruitService.addFruit(this.name)
 	            .then(function (fruit) {
 	            _this.fruits.push(fruit);
+	            _this.name = "";
+	        }, function (error) {
+	            console.log(error);
+	        });
+	    };
+	    AppComponent.prototype.deleteFruit = function (id) {
+	        var _this = this;
+	        this.fruitService.deleteFruit(id)
+	            .then(function (fruit) {
+	            _this.fruits.forEach(function (el) {
+	                if (fruit._id == el._id) {
+	                    var index = _this.fruits.indexOf(el);
+	                    _this.fruits.splice(index, 1);
+	                }
+	            });
 	        }, function (error) {
 	            console.log(error);
 	        });
@@ -39403,13 +39418,25 @@
 	    };
 	    FruitService.prototype.addFruit = function (name) {
 	        var body = JSON.stringify({ name: name });
-	        console.log(body);
 	        return this.http.post(url, body, options)
 	            .toPromise()
 	            .then(function (res) {
 	            var response = res.json();
 	            var g = new Fruit_1.Fruit();
 	            g.name = response.name;
+	            g._id = response._id;
+	            return g;
+	        })
+	            .catch(this.handleError);
+	    };
+	    FruitService.prototype.deleteFruit = function (id) {
+	        return this.http.delete(url + "/" + id, options)
+	            .toPromise()
+	            .then(function (res) {
+	            var response = res.json();
+	            var g = new Fruit_1.Fruit();
+	            g.name = response.name;
+	            g._id = response._id;
 	            return g;
 	        })
 	            .catch(this.handleError);
@@ -39423,6 +39450,7 @@
 	        body.forEach(function (el) {
 	            var g = new Fruit_1.Fruit();
 	            g.name = el.name;
+	            g._id = el._id;
 	            arr.push(g);
 	        });
 	        return arr || [];

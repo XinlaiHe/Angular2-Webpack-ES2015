@@ -37,16 +37,33 @@ export class AppComponent implements OnInit {
      );
   }
   addFruit() {
-    
+
     this.fruitService.addFruit(this.name)
     .then(
         fruit => {
           this.fruits.push(fruit);
+          this.name = "";
         },
         error => {
           console.log(error);
         }
       );
   }
+  deleteFruit(id : string) {
 
+    this.fruitService.deleteFruit(id)
+    .then(
+        fruit => {
+          this.fruits.forEach((el) => {
+              if(fruit._id == el._id){
+                let index = this.fruits.indexOf(el);
+                this.fruits.splice(index, 1);
+              }
+          })
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
 }

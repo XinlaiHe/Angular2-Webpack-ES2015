@@ -33,6 +33,21 @@ var AppComponent = (function () {
         this.fruitService.addFruit(this.name)
             .then(function (fruit) {
             _this.fruits.push(fruit);
+            _this.name = "";
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    AppComponent.prototype.deleteFruit = function (id) {
+        var _this = this;
+        this.fruitService.deleteFruit(id)
+            .then(function (fruit) {
+            _this.fruits.forEach(function (el) {
+                if (fruit._id == el._id) {
+                    var index = _this.fruits.indexOf(el);
+                    _this.fruits.splice(index, 1);
+                }
+            });
         }, function (error) {
             console.log(error);
         });

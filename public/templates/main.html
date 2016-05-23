@@ -24,7 +24,7 @@
         <tr *ngFor="let fruit of fruits">
           <td>{{ fruit.name }}</td>
           <td><i class='glyphicon glyphicon-pencil'></i></td>
-          <td><i class='glyphicon glyphicon-remove-sign'></i></td>
+          <td (click)='deleteFruit(fruit._id)'><i class='glyphicon glyphicon-remove-sign'></i></td>
         </tr>
       </tbody>
     </table>
