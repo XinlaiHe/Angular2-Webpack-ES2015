@@ -1,1 +1,19 @@
-<h1>Hello World</h1>
+<div align='center'>
+  <h1>{{title}}</h1>
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let fruit of fruits">
+        <td>{{ fruit.name }}</td>
+        <td><i class='glyphicon glyphicon-pencil'></i></td>
+        <td><i class='glyphicon glyphicon-remove-sign'></i></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

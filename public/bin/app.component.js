@@ -9,16 +9,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var FruitService_1 = require('./FruitService');
 var AppComponent = (function () {
-    function AppComponent() {
+    function AppComponent(fruitSerive) {
+        this.fruitSerive = fruitSerive;
+        this.title = "Fruits Grocery";
+        this.fruits = [];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.fruitSerive.getFruits()
+            .then(function (list) {
+            //console.log(1);
+            _this.fruits = list;
+        }, function (error) {
+            //console.log(2);
+            console.log(error);
+        });
+    };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: '../public/templates/main.html',
-            styleUrls: ['../public/styles/main.css']
+            styleUrls: ['../public/styles/main.css', '../public/styles/bootstrap/css/bootstrap.css'],
+            providers: [FruitService_1.FruitService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [FruitService_1.FruitService])
     ], AppComponent);
     return AppComponent;
 }());
