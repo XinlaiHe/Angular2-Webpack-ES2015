@@ -15,14 +15,15 @@ export class AppComponent implements OnInit {
 
   title: string;
   fruits: Array<Fruit>;
+  name: string = '';
 
-  constructor(private fruitSerive: FruitService ) {
+  constructor(private fruitService: FruitService ) {
     this.title = "Fruits Grocery";
     this.fruits = [];
   }
 
   ngOnInit() {
-    this.fruitSerive.getFruits()
+    this.fruitService.getFruits()
      .then(
       list => {
         //console.log(1);
@@ -34,6 +35,18 @@ export class AppComponent implements OnInit {
         console.log(error);
       }
      );
+  }
+  addFruit() {
+    
+    this.fruitService.addFruit(this.name)
+    .then(
+        fruit => {
+          this.fruits.push(fruit);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
 }

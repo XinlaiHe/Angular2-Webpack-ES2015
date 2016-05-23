@@ -6,6 +6,7 @@ import 'rxjs/Rx';
 
 let url = "http://localhost:3000/list";
 let headers = new Headers({ "Content-Type": "application/json" });
+let options = new RequestOptions({ headers: headers });
 
 @Injectable()
 export class FruitService {
@@ -22,6 +23,27 @@ export class FruitService {
       .then(this.extractData)
       .catch(this.handleError);
   }
+
+  addFruit(name: string): Promise<Fruit> {
+    
+    let body = JSON.stringify({ name : name });
+  
+    return this.http.post(
+       url,
+       body,
+       options
+      )
+       .toPromise()
+       .then((res: Response) => 
+              { 
+                let response = res.json(); 
+                let g = new Fruit(); 
+                g.name = response.name;
+                return g;
+              }
+            )
+       .catch(this.handleError);
+  } 
 
   private extractData(res: Response) {
     if (res.status < 200 || res.status >= 300) {

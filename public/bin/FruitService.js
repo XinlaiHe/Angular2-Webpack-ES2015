@@ -14,6 +14,7 @@ var Fruit_1 = require('./Fruit');
 require('rxjs/Rx');
 var url = "http://localhost:3000/list";
 var headers = new http_1.Headers({ "Content-Type": "application/json" });
+var options = new http_1.RequestOptions({ headers: headers });
 var FruitService = (function () {
     function FruitService(http) {
         this.http = http;
@@ -22,6 +23,19 @@ var FruitService = (function () {
         return this.http.get(url, headers)
             .toPromise()
             .then(this.extractData)
+            .catch(this.handleError);
+    };
+    FruitService.prototype.addFruit = function (name) {
+        var body = JSON.stringify({ name: name });
+        console.log(body);
+        return this.http.post(url, body, options)
+            .toPromise()
+            .then(function (res) {
+            var response = res.json();
+            var g = new Fruit_1.Fruit();
+            g.name = response.name;
+            return g;
+        })
             .catch(this.handleError);
     };
     FruitService.prototype.extractData = function (res) {

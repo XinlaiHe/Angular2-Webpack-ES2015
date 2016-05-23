@@ -11,19 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var FruitService_1 = require('./FruitService');
 var AppComponent = (function () {
-    function AppComponent(fruitSerive) {
-        this.fruitSerive = fruitSerive;
+    function AppComponent(fruitService) {
+        this.fruitService = fruitService;
+        this.name = '';
         this.title = "Fruits Grocery";
         this.fruits = [];
     }
     AppComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.fruitSerive.getFruits()
+        this.fruitService.getFruits()
             .then(function (list) {
             //console.log(1);
             _this.fruits = list;
         }, function (error) {
             //console.log(2);
+            console.log(error);
+        });
+    };
+    AppComponent.prototype.addFruit = function () {
+        var _this = this;
+        this.fruitService.addFruit(this.name)
+            .then(function (fruit) {
+            _this.fruits.push(fruit);
+        }, function (error) {
             console.log(error);
         });
     };

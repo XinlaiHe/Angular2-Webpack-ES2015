@@ -39330,19 +39330,29 @@
 	var core_1 = __webpack_require__(7);
 	var FruitService_1 = __webpack_require__(281);
 	var AppComponent = (function () {
-	    function AppComponent(fruitSerive) {
-	        this.fruitSerive = fruitSerive;
+	    function AppComponent(fruitService) {
+	        this.fruitService = fruitService;
+	        this.name = '';
 	        this.title = "Fruits Grocery";
 	        this.fruits = [];
 	    }
 	    AppComponent.prototype.ngOnInit = function () {
 	        var _this = this;
-	        this.fruitSerive.getFruits()
+	        this.fruitService.getFruits()
 	            .then(function (list) {
 	            //console.log(1);
 	            _this.fruits = list;
 	        }, function (error) {
 	            //console.log(2);
+	            console.log(error);
+	        });
+	    };
+	    AppComponent.prototype.addFruit = function () {
+	        var _this = this;
+	        this.fruitService.addFruit(this.name)
+	            .then(function (fruit) {
+	            _this.fruits.push(fruit);
+	        }, function (error) {
 	            console.log(error);
 	        });
 	    };
@@ -39380,6 +39390,7 @@
 	__webpack_require__(304);
 	var url = "http://localhost:3000/list";
 	var headers = new http_1.Headers({ "Content-Type": "application/json" });
+	var options = new http_1.RequestOptions({ headers: headers });
 	var FruitService = (function () {
 	    function FruitService(http) {
 	        this.http = http;
@@ -39388,6 +39399,19 @@
 	        return this.http.get(url, headers)
 	            .toPromise()
 	            .then(this.extractData)
+	            .catch(this.handleError);
+	    };
+	    FruitService.prototype.addFruit = function (name) {
+	        var body = JSON.stringify({ name: name });
+	        console.log(body);
+	        return this.http.post(url, body, options)
+	            .toPromise()
+	            .then(function (res) {
+	            var response = res.json();
+	            var g = new Fruit_1.Fruit();
+	            g.name = response.name;
+	            return g;
+	        })
 	            .catch(this.handleError);
 	    };
 	    FruitService.prototype.extractData = function (res) {
