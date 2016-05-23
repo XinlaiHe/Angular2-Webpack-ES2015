@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
+
   selector: 'my-app',
-  template:'<h1>Hello World</h1>'
+  templateUrl:'../public/templates/main.html',
+  styleUrls: ['../public/styles/main.css']
 
 })
 
