@@ -22,9 +22,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let fruit of fruits">
-          <td>{{ fruit.name }}</td>
-          <td><i class='glyphicon glyphicon-pencil'></i></td>
-          <td (click)='deleteFruit(fruit._id)'><i class='glyphicon glyphicon-remove-sign'></i></td>
+          <td *ngIf="!fruit.editing">{{ fruit.name }}</td>
+          <input *ngIf="fruit.editing" [(ngModel)]="FruitName" />
+          <td *ngIf="!fruit.editing" (click)='showUpdateField(fruit)'><i class='glyphicon glyphicon-pencil'></i></td>
+          <td *ngIf="fruit.editing" (click)='updateFruit(fruit)'><i class='glyphicon glyphicon-ok'></i></td>
+          <td *ngIf="!fruit.editing" (click)='deleteFruit(fruit._id)'><i class='glyphicon glyphicon-remove-sign'></i></td>
+          <td *ngIf="fruit.editing" (click)='hideUpdateField(fruit)'><i class='glyphicon glyphicon-remove-circle'></i></td>
         </tr>
       </tbody>
     </table>

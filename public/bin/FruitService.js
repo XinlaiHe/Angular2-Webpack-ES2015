@@ -50,6 +50,19 @@ var FruitService = (function () {
         })
             .catch(this.handleError);
     };
+    FruitService.prototype.updateFruit = function (id, name) {
+        var body = JSON.stringify({ name: name });
+        return this.http.put(url + '/' + id, body, options)
+            .toPromise()
+            .then(function (res) {
+            var response = res.json();
+            var g = new Fruit_1.Fruit();
+            g.name = response.name;
+            g._id = response._id;
+            return g;
+        })
+            .catch(this.handleError);
+    };
     FruitService.prototype.extractData = function (res) {
         if (res.status < 200 || res.status >= 300) {
             throw new Error('Bad response status: ' + res.status);

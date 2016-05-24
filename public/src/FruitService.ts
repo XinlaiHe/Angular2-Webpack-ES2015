@@ -27,24 +27,24 @@ export class FruitService {
   addFruit(name: string): Promise<Fruit> {
 
     let body = JSON.stringify({ name : name });
-  
+
     return this.http.post(
        url,
        body,
        options
       )
        .toPromise()
-       .then((res: Response) => 
-              { 
-                let response = res.json(); 
-                let g = new Fruit(); 
+       .then((res: Response) =>
+              {
+                let response = res.json();
+                let g = new Fruit();
                 g.name = response.name;
                 g._id = response._id;
                 return g;
               }
             )
        .catch(this.handleError);
-  } 
+  }
 
   deleteFruit(id : string): Promise<Fruit> {
 
@@ -53,15 +53,36 @@ export class FruitService {
         options
       )
        .toPromise()
-       .then((res: Response) => 
+       .then((res: Response) =>
             {
-                let response = res.json(); 
-                let g = new Fruit(); 
+                let response = res.json();
+                let g = new Fruit();
                 g.name = response.name;
                 g._id = response._id;
                 return g;
              }
             )
+       .catch(this.handleError);
+  }
+
+  updateFruit(id: string, name: string): Promise<Fruit> {
+
+    let body = JSON.stringify({ name: name });
+    return this.http.put(
+        url + '/' + id,
+        body,
+        options
+      )
+       .toPromise()
+       .then((res: Response) =>
+           {
+             let response = res.json();
+             let g = new Fruit();
+             g.name = response.name;
+             g._id = response._id;
+             return g;
+           }
+          )
        .catch(this.handleError);
   }
 

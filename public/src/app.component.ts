@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   title: string;
   fruits: Array<Fruit>;
   name: string = '';
+  FruitName: string = '';
 
   constructor(private fruitService: FruitService ) {
     this.title = "Fruits Grocery";
@@ -64,6 +65,41 @@ export class AppComponent implements OnInit {
         error => {
           console.log(error);
         }
+      );
+  }
+
+  showUpdateField(fru: Fruit){
+
+    let i = this.fruits.indexOf(fru);
+    this.fruits[i]["editing"] = true;
+    this.FruitName = this.fruits[i].name;
+  }
+
+  hideUpdateField(fru: Fruit){
+
+    let i = this.fruits.indexOf(fru);
+    delete this.fruits[i]["editing"];
+    this.FruitName = '';
+
+  }
+
+  updateFruit(fru: Fruit){
+
+    this.fruitService.updateFruit(fru._id, this.FruitName)
+      .then(
+            fruit => {
+              this.fruits.forEach((el) => {
+                if (fruit._id == el._id) {
+                  let index = this.fruits.indexOf(el);
+                  this.fruits[index].name = this.FruitName;
+                  delete this.fruits[index]["editing"];
+                  this.FruitName = '';
+                }
+              })
+            },
+      error => {
+        console.log(error);
+      }
       );
   }
 }

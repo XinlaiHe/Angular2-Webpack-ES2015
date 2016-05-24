@@ -14,6 +14,7 @@ var AppComponent = (function () {
     function AppComponent(fruitService) {
         this.fruitService = fruitService;
         this.name = '';
+        this.FruitName = '';
         this.title = "Fruits Grocery";
         this.fruits = [];
     }
@@ -46,6 +47,32 @@ var AppComponent = (function () {
                 if (fruit._id == el._id) {
                     var index = _this.fruits.indexOf(el);
                     _this.fruits.splice(index, 1);
+                }
+            });
+        }, function (error) {
+            console.log(error);
+        });
+    };
+    AppComponent.prototype.showUpdateField = function (fru) {
+        var i = this.fruits.indexOf(fru);
+        this.fruits[i]["editing"] = true;
+        this.FruitName = this.fruits[i].name;
+    };
+    AppComponent.prototype.hideUpdateField = function (fru) {
+        var i = this.fruits.indexOf(fru);
+        delete this.fruits[i]["editing"];
+        this.FruitName = '';
+    };
+    AppComponent.prototype.updateFruit = function (fru) {
+        var _this = this;
+        this.fruitService.updateFruit(fru._id, this.FruitName)
+            .then(function (fruit) {
+            _this.fruits.forEach(function (el) {
+                if (fruit._id == el._id) {
+                    var index = _this.fruits.indexOf(el);
+                    _this.fruits[index].name = _this.FruitName;
+                    delete _this.fruits[index]["editing"];
+                    _this.FruitName = '';
                 }
             });
         }, function (error) {
