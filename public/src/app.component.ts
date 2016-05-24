@@ -38,7 +38,9 @@ export class AppComponent implements OnInit {
      );
   }
   addFruit() {
-
+    if (this.name == '') {
+      return;
+    }
     this.fruitService.addFruit(this.name)
     .then(
         fruit => {
@@ -84,7 +86,9 @@ export class AppComponent implements OnInit {
   }
 
   updateFruit(fru: Fruit){
-
+    if (this.FruitName == '') {
+      return;
+    }
     this.fruitService.updateFruit(fru._id, this.FruitName)
       .then(
             fruit => {

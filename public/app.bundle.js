@@ -39350,6 +39350,9 @@
 	    };
 	    AppComponent.prototype.addFruit = function () {
 	        var _this = this;
+	        if (this.name == '') {
+	            return;
+	        }
 	        this.fruitService.addFruit(this.name)
 	            .then(function (fruit) {
 	            _this.fruits.push(fruit);
@@ -39384,6 +39387,9 @@
 	    };
 	    AppComponent.prototype.updateFruit = function (fru) {
 	        var _this = this;
+	        if (this.FruitName == '') {
+	            return;
+	        }
 	        this.fruitService.updateFruit(fru._id, this.FruitName)
 	            .then(function (fruit) {
 	            _this.fruits.forEach(function (el) {
