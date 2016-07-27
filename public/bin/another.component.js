@@ -9,19 +9,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var AppComponent = (function () {
-    function AppComponent() {
+var AnotherComponent = (function () {
+    function AnotherComponent() {
     }
-    AppComponent = __decorate([
+    AnotherComponent = __decorate([
         core_1.Component({
-            selector: 'my-app',
-            templateUrl: '../public/templates/nav.html',
-            directives: [router_1.ROUTER_DIRECTIVES]
+            selector: 'another',
+            templateUrl: '../public/templates/another.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], AppComponent);
-    return AppComponent;
+    ], AnotherComponent);
+    return AnotherComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.AnotherComponent = AnotherComponent;
+//# sourceMappingURL=another.component.js.map
