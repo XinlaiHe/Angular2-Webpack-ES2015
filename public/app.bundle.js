@@ -46269,7 +46269,6 @@
 	var fruit_component_1 = __webpack_require__(360);
 	exports.AppRoutes = [
 	    { path: '', component: fruit_component_1.FruitComponent },
-	    { path: 'fruits', component: fruit_component_1.FruitComponent },
 	    { path: 'another', component: another_component_1.AnotherComponent }
 	];
 	//# sourceMappingURL=app.routers.js.map

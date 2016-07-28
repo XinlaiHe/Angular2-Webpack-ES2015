@@ -4,6 +4,5 @@ import { FruitComponent } from './fruit.component';
 
 export const AppRoutes = [
   { path: '', component: FruitComponent },
-  { path: 'fruits', component: FruitComponent },
   { path: 'another', component: AnotherComponent }
 ];
